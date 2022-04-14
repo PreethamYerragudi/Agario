@@ -12,7 +12,7 @@ public class AgarioGame extends AnimationPanel {
 	ArrayList<Blob> blobs;
 	
 	public AgarioGame() {
-		super("Agario", 900, 700);
+		super("agar.io", 900, 700);
 		player = new PlayerBlob();
 		blobs = new ArrayList<>();
 		for (int i = 0; i < 100; i++)
@@ -29,7 +29,7 @@ public class AgarioGame extends AnimationPanel {
 			}
 			blob.draw(g);
 		}
-		if(frameNumber%(blobs.size()/2)==0 && blobs.size()<100) {
+		if(frameNumber % (blobs.size() / 2) == 0 && blobs.size() < 100) {
 			blobs.add(new Blob());
 		}
 		player.follow(mouseX, mouseY);

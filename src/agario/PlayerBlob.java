@@ -1,22 +1,21 @@
 package agario;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class PlayerBlob extends Blob {
 	
-	private int speed;
-	private int xVel;
-	private int yVel;
+	public Color getColor() { return color; }
 	
 	public PlayerBlob() {
-		x = (int)(Math.random() * 300) + 300;
+		x = (int)(Math.random() * 300) + 350;
 		y = (int)(Math.random() * 300) + 300;
 		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
-		mass = 40;
+		mass = 30;
 		speed = 6;
 	}
 	
-	public void increaseMass(int increase) {
+	public void increaseMass(double increase) {
 		this.mass += increase;
 	}
 	
@@ -45,5 +44,18 @@ public class PlayerBlob extends Blob {
 	public void move() {
 		x += xVel;
 		y += yVel;
+	}
+	
+	public void feed() {
+		mass -= 1.5;
+	}
+	
+	public void split() {
+		
+	}
+	
+	public void drawMass(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.drawString("" + (int) mass, x - (("" + (int) mass).length() * 5) + 5, y + 5);
 	}
 }

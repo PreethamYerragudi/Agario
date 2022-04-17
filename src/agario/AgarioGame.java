@@ -23,16 +23,17 @@ public class AgarioGame extends AnimationPanel {
 		for (int i = 0; i < blobs.size(); i++) {
 			Blob blob = blobs.get(i);
 			blob.move();
-			if(player.overlaps(blob.getX(), blob.getY(), (int) blob.getMass())) {
+			if (player.overlaps(blob.getX(), blob.getY(), blob.getMass())) {
 				player.increaseMass(blob.getMass() / 10);
 				blobs.remove(i);
 				i--;
 			}
 			blob.draw(g);
 		}
-		if(frameNumber % (blobs.size() / 2) == 0 && blobs.size() <= 100) {
+		if (blobs.size() <= 100 && blobs.size() / 2 != 0 && frameNumber % (blobs.size() / 2) == 0) {
 			blobs.add(new Blob());
 		}
+		
 		player.follow(mouseX, mouseY);
 		player.move();
 		player.draw(g);
@@ -46,10 +47,7 @@ public class AgarioGame extends AnimationPanel {
 			if (player.getMass() > 20) {
 				player.feed();
 				Blob blob = new Blob(player.getX(), player.getY(), 15, player.getColor());
-				blob.feed(mouseX, mouseY);
-				while (Math.sqrt(((player.getX() - blob.getX()) * (player.getX() - blob.getX())) + ((player.getY() - blob.getY()) * (player.getY() - blob.getY()))) + blob.getMass() <= player.getMass()) {
-					blob.move();
-				}
+				blob.feed(mouseX, mouseY, player);
 				blobs.add(blob);
 			}
 			break;

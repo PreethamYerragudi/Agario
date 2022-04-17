@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 public class PlayerBlob extends Blob {
 	
+	public double getXVel() { return xVel; }
+	public double getYVel() { return yVel; }
 	public Color getColor() { return color; }
 	
 	public PlayerBlob() {
@@ -19,8 +21,8 @@ public class PlayerBlob extends Blob {
 		this.mass += increase;
 	}
 	
-	public boolean overlaps(int x1, int y1, int r1) {
-		int distSq = (int) Math.sqrt(((x - x1) * (x - x1)) + ((y - y1) * (y - y1))); 
+	public boolean overlaps(double x1, double y1, double r1) {
+		double distSq = (int) Math.sqrt(((x - x1) * (x - x1)) + ((y - y1) * (y - y1))); 
 		if (distSq + r1 < mass) 
             return true;
 		return false;
@@ -56,6 +58,6 @@ public class PlayerBlob extends Blob {
 	
 	public void drawMass(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.drawString("" + (int) mass, x - (("" + (int) mass).length() * 5) + 5, y + 5);
+		g.drawString("" + (int) mass, (int) x - (("" + (int) mass).length() * 5) + 5, (int) y + 5);
 	}
 }

@@ -5,16 +5,16 @@ import java.awt.Graphics;
 
 public class Blob {
 	
-	protected int x;
-	protected int y;
+	protected double x;
+	protected double y;
 	protected double xVel;
 	protected double yVel;
 	protected int speed;
 	protected double mass;
 	protected Color color;
 	
-	public int getX() { return x; }
-	public int getY() { return y; }
+	public double getX() { return x; }
+	public double getY() { return y; }
 	public double getMass() { return mass; }
 	
 	public void setX(int x) { this.x = x; }
@@ -27,33 +27,37 @@ public class Blob {
 		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
 	}
 	
-	public Blob(int x, int y, int mass, Color color) {
+	public Blob(double x, double y, double mass, Color color) {
 		this.x = x;
 		this.y = y;
 		this.mass = mass;
 		this.color = color;
-		this.speed = 16;
+		this.speed = 12;
 		
 	}
 	
-	public void feed(int mouseX, int mouseY) {
+	public void feed(int mouseX, int mouseY, PlayerBlob player) {
 		double deltaX = mouseX - x;
 		double deltaY = mouseY - y;
 		double hypotenuse = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 		
-		xVel = (int)(deltaX * (speed / hypotenuse));
-		yVel = (int)(deltaY * (speed / hypotenuse));
+		xVel = (int)(deltaX * (speed / hypotenuse)) + player.getXVel();
+		yVel = (int)(deltaY * (speed / hypotenuse)) + player.getYVel();
+		
+		double angle = Math.atan2(player.getY() - mouseY, player.getX() - mouseX) - Math.PI;
+		x = (player.getMass() * Math.cos(angle)) + player.getX();
+		y = (player.getMass() * Math.sin(angle)) + player.getY();
 	}
 	
 	public void move() {
 		x += xVel;
 		y += yVel;
-		xVel *= 0.9;
-		yVel *= 0.9;
+		xVel *= 0.95;
+		yVel *= 0.95;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x - (int) mass, y - (int) mass, (int) mass * 2, (int) mass * 2);
+		g.fillOval((int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2);
 	}
 }

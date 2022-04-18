@@ -2,12 +2,18 @@ package agario;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 
 public class PlayerBlob extends Blob {
+	
+	private boolean potato;
 	
 	public double getXVel() { return xVel; }
 	public double getYVel() { return yVel; }
 	public Color getColor() { return color; }
+	public boolean getPotato() { return potato; }
+	
+	public void switchPotato() { this.potato = !potato; }
 	
 	public PlayerBlob() {
 		x = (int)(Math.random() * 300) + 350;
@@ -17,11 +23,12 @@ public class PlayerBlob extends Blob {
 		speed = 6;
 	}
 	
-	public PlayerBlob(double x, double y, double mass, Color color) {
+	public PlayerBlob(double x, double y, double mass, Color color, boolean potato) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
 		this.mass = mass;
+		this.potato = potato;
 		speed = 6;
 	}
 	/**
@@ -46,16 +53,6 @@ public class PlayerBlob extends Blob {
 		if (distSq + r1 < mass) 
             return true;
 		return false;
-	}
-	
-	/**
-	 * Spawns a potato at the specified coordinates.
-	 * 
-	 * @param x the x position of the potato
-	 * @param y the y position of the potato
-	 */
-	public void potato(int x, int y) {
-		
 	}
 	
 	/**
@@ -101,9 +98,24 @@ public class PlayerBlob extends Blob {
 	}
 	
 	/**
+	 * Draws {@code PlayerBlob}.
+	 * 
+	 * @param g the {@code Graphics} object that is used to draw
+	 * @param io the {@code ImageObserver} object that is used to draw
+	 */
+	public void draw(Graphics g, ImageObserver io) {
+		if (potato)
+			g.drawImage(Images.POTATO, (int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2, io);
+		else {
+			g.setColor(color);
+			g.fillOval((int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2);
+		}
+	}
+	
+	/**
 	 * Draws the mass of {@code PlayerBlob} at the center of the blob.
 	 * 
-	 * @param g the {@code Graphics} object that is used to draw.
+	 * @param g the {@code Graphics} object that is used to draw
 	 */
 	public void drawMass(Graphics g) {
 		g.setColor(Color.WHITE);

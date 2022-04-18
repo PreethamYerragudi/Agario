@@ -10,9 +10,12 @@ public class AgarioGame extends AnimationPanel {
 
 	ArrayList<Blob> blobs;
 	ArrayList<PlayerBlob> playerBlobs;
+	Images images;
 
 	public AgarioGame() {
 		super("agar.io", 1000, 700);
+		images = new Images();
+		images.load();
 		playerBlobs = new ArrayList<>();
 		blobs = new ArrayList<>();
 		for (int i = 0; i < 100; i++)
@@ -42,7 +45,7 @@ public class AgarioGame extends AnimationPanel {
 		for (PlayerBlob player : playerBlobs) {
 			player.follow(mouseX, mouseY);
 			player.move();
-			player.draw(g);
+			player.draw(g, this);
 			player.drawMass(g);
 		}
 
@@ -75,8 +78,12 @@ public class AgarioGame extends AnimationPanel {
 			for (int i = 0; i < blobsSplit.size(); i++) {
 				PlayerBlob player = blobsSplit.get(i);
 				player.split();
-				playerBlobs.add(new PlayerBlob(player.getX() - player.getMass(), player.getY() - player.getMass(), player.getMass(), player.getColor()));
+				playerBlobs.add(new PlayerBlob(player.getX() - player.getMass(), player.getY() - player.getMass(), player.getMass(), player.getColor(), player.getPotato()));
 			}
+			break;
+		case KeyEvent.VK_P:
+			for (PlayerBlob player : playerBlobs)
+				player.switchPotato();
 			break;
 		case KeyEvent.VK_ESCAPE:
 			System.exit(0);

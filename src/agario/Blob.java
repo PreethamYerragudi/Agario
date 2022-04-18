@@ -69,7 +69,7 @@ public class Blob {
 	/**
 	 * Draws {@code Blob}.
 	 * 
-	 * @param g the {@code Graphics} object that is used to draw.
+	 * @param g the {@code Graphics} object that is used to draw
 	 */
 	public void draw(Graphics g) {
 		g.setColor(color);

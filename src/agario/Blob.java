@@ -32,8 +32,7 @@ public class Blob {
 		this.y = y;
 		this.mass = mass;
 		this.color = color;
-		this.speed = 12;
-		
+		this.speed = 14;
 	}
 	
 	/**
@@ -63,12 +62,12 @@ public class Blob {
 	public void move() {
 		x += xVel;
 		y += yVel;
-		xVel *= 0.95;
-		yVel *= 0.95;
+		xVel *= 0.9;
+		yVel *= 0.9;
 	}
 	
 	/**
-	 * Draws {@code Blob}
+	 * Draws {@code Blob}.
 	 * 
 	 * @param g the {@code Graphics} object that is used to draw.
 	 */

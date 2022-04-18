@@ -13,10 +13,17 @@ public class PlayerBlob extends Blob {
 		x = (int)(Math.random() * 300) + 350;
 		y = (int)(Math.random() * 300) + 300;
 		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
-		mass = 30;
+		mass = 200;
 		speed = 6;
 	}
 	
+	public PlayerBlob(double x, double y, double mass, Color color) {
+		this.x = x;
+		this.y = y;
+		this.color = color;
+		this.mass = mass;
+		speed = 6;
+	}
 	/**
 	 * Increases the mass of {@code PlayerBlob} by a specified amount.
 	 * 
@@ -39,6 +46,15 @@ public class PlayerBlob extends Blob {
 		if (distSq + r1 < mass) 
             return true;
 		return false;
+	}
+	
+	/**
+	 * Spawns a potato at the specified coordinates.
+	 * 
+	 * @param x the x position of the potato
+	 * @param y the y position of the potato
+	 */
+	public void potato(int x, int y) {
 		
 	}
 	
@@ -80,6 +96,7 @@ public class PlayerBlob extends Blob {
 	}
 	
 	public void split() {
+		mass /= 2;
 		
 	}
 	

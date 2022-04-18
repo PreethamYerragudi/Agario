@@ -17,10 +17,23 @@ public class PlayerBlob extends Blob {
 		speed = 6;
 	}
 	
+	/**
+	 * Increases the mass of {@code PlayerBlob} by a specified amount.
+	 * 
+	 * @param increase a double that mass is increased by
+	 */
 	public void increaseMass(double increase) {
 		this.mass += increase;
 	}
 	
+	/**
+	 * Returns whether {@code PlayerBlob} completely overlaps a specified circle.
+	 * 
+	 * @param x1 the x position of the center of the circle
+	 * @param y1 the y position of the center of the circle
+	 * @param r1 the radius of the circle
+	 * @return {@code true} if {@code PlayerBlob} overlaps the circle; {@code false} otherwise
+	 */
 	public boolean overlaps(double x1, double y1, double r1) {
 		double distSq = (int) Math.sqrt(((x - x1) * (x - x1)) + ((y - y1) * (y - y1))); 
 		if (distSq + r1 < mass) 
@@ -28,6 +41,14 @@ public class PlayerBlob extends Blob {
 		return false;
 		
 	}
+	
+	/**
+	 * Updates the velocities of {@code PlayerBlob} to move towards the specified
+	 * mouse coordinates.
+	 * 
+	 * @param mouseX the x position of the mouse
+	 * @param mouseY the y position of the mouse
+	 */
 	public void follow(int mouseX, int mouseY) {
 		double deltaX = mouseX - x;
 		double deltaY = mouseY - y;
@@ -43,11 +64,17 @@ public class PlayerBlob extends Blob {
 		}
 	}
 	
+	/**
+	 * Updates the position of {@code PlayerBlob}.
+	 */
 	public void move() {
 		x += xVel;
 		y += yVel;
 	}
 	
+	/**
+	 * Decreases the mass of {@code PlayerBlob} when it feeds a {@code Blob}.
+	 */
 	public void feed() {
 		mass -= 1.5;
 	}
@@ -56,6 +83,11 @@ public class PlayerBlob extends Blob {
 		
 	}
 	
+	/**
+	 * Draws the mass of {@code PlayerBlob} at the center of the blob.
+	 * 
+	 * @param g the {@code Graphics} object that is used to draw.
+	 */
 	public void drawMass(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.drawString("" + (int) mass, (int) x - (("" + (int) mass).length() * 5) + 5, (int) y + 5);

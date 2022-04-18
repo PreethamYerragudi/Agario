@@ -36,6 +36,14 @@ public class Blob {
 		
 	}
 	
+	/**
+	 * Sets the velocities of {@code Blob} to move towards the specified mouse
+	 * coordinates and sets the position to the edge of {@code PlayerBlob}.
+	 * 
+	 * @param mouseX the x position of the mouse
+	 * @param mouseY the y position of the mouse
+	 * @param player the {@code PlayerBlob} that {@code Blob} is fed from
+	 */
 	public void feed(int mouseX, int mouseY, PlayerBlob player) {
 		double deltaX = mouseX - x;
 		double deltaY = mouseY - y;
@@ -49,6 +57,9 @@ public class Blob {
 		y = (player.getMass() * Math.sin(angle)) + player.getY();
 	}
 	
+	/**
+	 * Updates the position of {@code Blob} and slows down the velocities.
+	 */
 	public void move() {
 		x += xVel;
 		y += yVel;
@@ -56,6 +67,11 @@ public class Blob {
 		yVel *= 0.95;
 	}
 	
+	/**
+	 * Draws {@code Blob}
+	 * 
+	 * @param g the {@code Graphics} object that is used to draw.
+	 */
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillOval((int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2);

@@ -21,8 +21,8 @@ public class Blob {
 	public void setY(int y) { this.y = y; }
 
 	public Blob() {
-		x = (int)(Math.random() * 1000);
-		y = (int)(Math.random() * 700);
+		x = (int)(Math.random() * 3000);
+		y = (int)(Math.random() * 3000);
 		mass = 8;
 		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
 	}
@@ -69,10 +69,11 @@ public class Blob {
 	/**
 	 * Draws {@code Blob}.
 	 * 
+	 * @param camera the {@code Camera}
 	 * @param g the {@code Graphics} object that is used to draw
 	 */
-	public void draw(Graphics g) {
+	public void draw(Camera camera, Graphics g) {
 		g.setColor(color);
-		g.fillOval((int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2);
+		g.fillOval((int) (x - mass - camera.getX()), (int) (y - mass - camera.getY()), (int) mass * 2, (int) mass * 2);
 	}
 }

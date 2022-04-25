@@ -8,9 +8,10 @@ import code.AnimationPanel;
 
 public class AgarioGame extends AnimationPanel {
 
-	ArrayList<Blob> blobs;
-	ArrayList<PlayerBlob> playerBlobs;
-	Images images;
+	private ArrayList<Blob> blobs;
+	private ArrayList<PlayerBlob> playerBlobs;
+	private Camera camera;
+	private Images images;
 
 	public AgarioGame() {
 		super("agar.io", 1000, 700);
@@ -18,13 +19,16 @@ public class AgarioGame extends AnimationPanel {
 		images.load();
 		playerBlobs = new ArrayList<>();
 		blobs = new ArrayList<>();
-		for (int i = 0; i < 100; i++)
+		camera = new Camera();
+		for (int i = 0; i < 500; i++)
 			blobs.add(new Blob());
 		playerBlobs.add(new PlayerBlob());
 	}
 
 	protected void renderFrame(Graphics g) {
-
+		
+		camera.move(playerBlobs);
+		
 		ArrayList<Blob> blobsEaten = new ArrayList<>();
 		
 		for (Blob blob : blobs) {
@@ -35,7 +39,7 @@ public class AgarioGame extends AnimationPanel {
 				}
 			}
 			blob.move();
-			blob.draw(g);
+			blob.draw(camera, g);
 		}
 		
 		for (int i = 0; i < blobsEaten.size(); i++)
@@ -43,13 +47,13 @@ public class AgarioGame extends AnimationPanel {
 				blobs.remove(blobs.indexOf(blobsEaten.get(i)));
 		
 		for (PlayerBlob player : playerBlobs) {
-			player.follow(mouseX, mouseY);
+			player.follow(mouseX + (int) camera.getX(), mouseY + (int) camera.getY());
 			player.move();
-			player.draw(g, this);
-			player.drawMass(g);
+			player.draw(camera, g, this);
+			player.drawMass(camera, g);
 		}
 
-		if (blobs.size() <= 100 && blobs.size() / 2 != 0 && frameNumber % (blobs.size() / 2) == 0) {
+		if (blobs.size() <= 500 && blobs.size() / 2 != 0 && frameNumber % (blobs.size() / 2) == 0) {
 			blobs.add(new Blob());
 		}
 
@@ -63,7 +67,7 @@ public class AgarioGame extends AnimationPanel {
 				if (player.getMass() > 20) {
 					player.feed();
 					Blob blob = new Blob(player.getX(), player.getY(), 15, player.getColor());
-					blob.feed(mouseX, mouseY, player);
+					blob.feed(mouseX + (int) camera.getX(), mouseY + (int) camera.getY(), player);
 					blobs.add(blob);
 				}
 			}

@@ -21,10 +21,10 @@ public class Blob {
 	public void setY(int y) { this.y = y; }
 
 	public Blob() {
-		x = (int)(Math.random() * 3000);
-		y = (int)(Math.random() * 3000);
+		x = (int)(Math.random() * 4000);
+		y = (int)(Math.random() * 4000);
 		mass = 8;
-		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
+		color = new Color((int)(Math.random() * 240), (int)(Math.random() * 240), (int)(Math.random() * 240));
 	}
 	
 	public Blob(double x, double y, double mass, Color color) {
@@ -62,8 +62,8 @@ public class Blob {
 	public void move() {
 		x += xVel;
 		y += yVel;
-		xVel *= 0.9;
-		yVel *= 0.9;
+		xVel *= 0.95;
+		yVel *= 0.95;
 	}
 	
 	/**

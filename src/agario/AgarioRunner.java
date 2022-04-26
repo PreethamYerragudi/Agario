@@ -16,7 +16,7 @@ import code.AnimationPanel;
 public class AgarioRunner 
 {
 
-    int FPS = 60;   //Frames per second (animation speed)
+    int FPS = 63;   //Frames per second (animation speed)
     AnimationPanel world = new AgarioGame();
     
     

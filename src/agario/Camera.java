@@ -19,7 +19,7 @@ public class Camera {
 		}
 		averageX /= playerBlobs.size();
 		averageY /= playerBlobs.size();
-		this.x = averageX - 500;
+		this.x = averageX - 600;
 		this.y = averageY - 350;
 	}
 }

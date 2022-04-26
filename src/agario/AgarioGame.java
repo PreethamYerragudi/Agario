@@ -6,21 +6,29 @@ import java.util.ArrayList;
 
 import code.AnimationPanel;
 
+/**
+ * {@code AgarioGame} class.
+ * 
+ * @author Jianing Wang
+ * @author Preetham Yerragudi
+ */
 public class AgarioGame extends AnimationPanel {
 
 	private ArrayList<Blob> blobs;
 	private ArrayList<PlayerBlob> playerBlobs;
 	private Camera camera;
+	private Minimap minimap;
 	private Images images;
 
 	public AgarioGame() {
-		super("agar.io", 1000, 700);
+		super("agar.io", 1200, 700);
 		images = new Images();
 		images.load();
 		playerBlobs = new ArrayList<>();
 		blobs = new ArrayList<>();
 		camera = new Camera();
-		for (int i = 0; i < 500; i++)
+		minimap = new Minimap();
+		for (int i = 0; i < 600; i++)
 			blobs.add(new Blob());
 		playerBlobs.add(new PlayerBlob());
 	}
@@ -34,7 +42,7 @@ public class AgarioGame extends AnimationPanel {
 		for (Blob blob : blobs) {
 			for (PlayerBlob player : playerBlobs) {
 				if (player.overlaps(blob.getX(), blob.getY(), blob.getMass())) {
-					player.increaseMass(blob.getMass() / 10);
+					player.increaseMass(blob.getMass() / 20);
 					blobsEaten.add(blob);
 				}
 			}
@@ -53,9 +61,12 @@ public class AgarioGame extends AnimationPanel {
 			player.drawMass(camera, g);
 		}
 
-		if (blobs.size() <= 500 && blobs.size() / 2 != 0 && frameNumber % (blobs.size() / 2) == 0) {
+		if (blobs.size() <= 600 && blobs.size() / 2 != 0 && frameNumber % (blobs.size() / 2) == 0) {
 			blobs.add(new Blob());
 		}
+		
+		minimap.drawMap(g);
+		minimap.draw(playerBlobs, g);
 
 	}
 

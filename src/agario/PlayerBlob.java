@@ -16,9 +16,9 @@ public class PlayerBlob extends Blob {
 	public void switchPotato() { this.potato = !potato; }
 	
 	public PlayerBlob() {
-		x = (int)(Math.random() * 400) + 1300;
-		y = (int)(Math.random() * 400) + 1300;
-		color = new Color((int)(Math.random() * 200), (int)(Math.random() * 200), (int)(Math.random() * 200));
+		x = (int)(Math.random() * 3000);
+		y = (int)(Math.random() * 3000);
+		color = new Color((int) (Math.random() * 240), (int) (Math.random() * 240), (int) (Math.random() * 240));
 		mass = 100;
 		speed = 6;
 	}
@@ -106,10 +106,10 @@ public class PlayerBlob extends Blob {
 	 */
 	public void draw(Camera camera, Graphics g, ImageObserver io) {
 		if (potato)
-			g.drawImage(Images.POTATO, (int) x - (int) mass, (int) y - (int) mass, (int) mass * 2, (int) mass * 2, io);
+			g.drawImage(Images.POTATO, (int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2, io);
 		else {
 			g.setColor(color);
-			g.fillOval((int) (camera.getX() - x + 1000 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2);
+			g.fillOval((int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2);
 		}
 	}
 	
@@ -121,6 +121,6 @@ public class PlayerBlob extends Blob {
 	 */
 	public void drawMass(Camera camera, Graphics g) {
 		g.setColor(Color.WHITE);
-		g.drawString("" + (int) mass, (int) (camera.getX() - x) + 1000 - (("" + (int) mass).length() * 5) + 5, (int) (camera.getY() - y) + 700);
+		g.drawString("" + (int) mass, (int) (camera.getX() - x) + 1200 - (("" + (int) mass).length() * 5) + 5, (int) (camera.getY() - y) + 700);
 	}
 }

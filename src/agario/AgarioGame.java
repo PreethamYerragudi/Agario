@@ -2,6 +2,9 @@ package agario;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import code.AnimationPanel;
@@ -13,7 +16,10 @@ import code.AnimationPanel;
  * @author Preetham Yerragudi
  */
 public class AgarioGame extends AnimationPanel {
-
+	private InputStream input;
+	private OutputStream out;
+	private Socket client;
+	private Socket server = new Socket();
 	private ArrayList<Blob> blobs;
 	private ArrayList<PlayerBlob> playerBlobs;
 	private Camera camera;
@@ -87,7 +93,7 @@ public class AgarioGame extends AnimationPanel {
 		case KeyEvent.VK_SPACE:
 			ArrayList<PlayerBlob> blobsSplit = new ArrayList<>();
 			for (PlayerBlob player : playerBlobs)
-				if (player.getMass() > 30)
+				if (player.getMass() > 15)
 					blobsSplit.add(player);
 				
 			for (int i = 0; i < blobsSplit.size(); i++) {

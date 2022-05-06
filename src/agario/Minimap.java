@@ -21,7 +21,7 @@ public class Minimap {
 	 * Draws the {@code Minimap}.
 	 * 
 	 * @param g the {@code Graphics} object that is used to draw
-	 */
+	 */	
 	public void drawMap(Graphics g) {
 		g.setColor(new Color(0, 0, 0, 0.5f));
 		g.fillRect(x, y, WIDTH, HEIGHT);

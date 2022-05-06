@@ -6,14 +6,20 @@ import java.awt.image.ImageObserver;
 
 public class PlayerBlob extends Blob {
 	
-	private boolean potato;
+	private String name;
+	private int skin;
+	
+	public static final int DEFAULT = 0;
+	public static final int SCHIEFER = 1;
+	public static final int POTATO = 2;
 	
 	public double getXVel() { return xVel; }
 	public double getYVel() { return yVel; }
 	public Color getColor() { return color; }
-	public boolean getPotato() { return potato; }
+	public int getSkin() { return skin; }
 	
-	public void switchPotato() { this.potato = !potato; }
+	public void setName(String name) { this.name = name; }
+	public void switchSkin(int skin) { this.skin = skin; }
 	
 	public PlayerBlob() {
 		x = (int)(Math.random() * 3000);
@@ -23,14 +29,15 @@ public class PlayerBlob extends Blob {
 		speed = 6;
 	}
 	
-	public PlayerBlob(double x, double y, double mass, Color color, boolean potato) {
+	public PlayerBlob(double x, double y, double mass, Color color, int skin) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
 		this.mass = mass;
-		this.potato = potato;
+		this.skin = skin;
 		speed = 6;
 	}
+	
 	/**
 	 * Increases the mass of {@code PlayerBlob} by a specified amount.
 	 * 
@@ -92,9 +99,11 @@ public class PlayerBlob extends Blob {
 		mass -= 1.5;
 	}
 	
+	/**
+	 * Splits the mass.
+	 */
 	public void split() {
 		mass /= 2;
-		
 	}
 	
 	/**
@@ -105,11 +114,17 @@ public class PlayerBlob extends Blob {
 	 * @param io the {@code ImageObserver} object that is used to draw
 	 */
 	public void draw(Camera camera, Graphics g, ImageObserver io) {
-		if (potato)
-			g.drawImage(Images.POTATO, (int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2, io);
-		else {
+		switch (skin) {
+		case DEFAULT:
 			g.setColor(color);
 			g.fillOval((int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2);
+			break;
+		case SCHIEFER:
+			g.drawImage(Images.SCHIEFER, (int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2, io);
+			break;
+		case POTATO:
+			g.drawImage(Images.POTATO, (int) (camera.getX() - x + 1200 - mass), (int) (camera.getY() - y + 700 - mass), (int) mass * 2, (int) mass * 2, io);
+			break;
 		}
 	}
 	
